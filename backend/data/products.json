@@ -1,0 +1,36 @@
+[
+  {
+    "name": "SanDisk 2TB Extreme Portable SSD - Up to 1050MB/s, USB-C, USB 3.2 Gen 2",
+    "price": "122.90",
+    "description": "Get NVMe solid state performance with up to 1050MB/s read and 1000MB/s write speeds in a portable, high-capacity drive(1) (Based on internal testing; performance may be lower depending on host device & other factors. 1MB=1,000,000 bytes.) ",
+    "ratings": 4.5,
+    "images": [
+      {
+        "public_id": "products/",
+        "url": "https://m.media-amazon.com/images/I/71ifPsdG1cL._AC_UF1000,1000_QL80_.jpg"
+      }
+    ],
+    "category": "Electronics",
+    "seller": "Ebay",
+    "stock": 50,
+    "numOfReviews": 32,
+    "reviews": []
+  },
+  {
+    "name": "Dell Inspiron 3511 Laptop, 15.6 Full HD Touchscreen, Intel Core i5-1135G",
+    "price": "507.00",
+    "description": "CPU: Intel Core i5-1135G7 (4 Cores, 8 Threads, 8MB Cache, 2.40 GHz base frequency, up to 4.20 GHz max turbo frequency, Memory: Up to 32GB DDR4 SDRAM, Hard Drive: Up to 2TB PCIe NVMe M.2 Solid State Drive, Operating System: Windows 11 Home, Display: 15.6 diagonal FHD (1920 x 1080) Anti-Glare LED Backlight Narrow Border WVA Touchscreen",
+    "ratings": 4.9,
+    "images": [
+      {
+        "public_id": "products/",
+        "url": "https://m.media-amazon.com/images/I/71lsq9TesJL._AC_UF894,1000_QL80_.jpg"
+      }
+    ],
+    "category": "Laptops",
+    "seller": "Amazon",
+    "stock": 50,
+    "numOfReviews": 12,
+    "reviews": []
+  }
+]
