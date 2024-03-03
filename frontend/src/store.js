@@ -23,10 +23,11 @@
 
 import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
-import { productsReducer } from './reducers/productsReducer';
+import { productsReducer, productDetailsReducer } from './reducers/productsReducer';
 
 const reducer = combineReducers({
-    products: productsReducer
+    products: productsReducer,
+    productDetails:productDetailsReducer
 });
 
 let initialState = {};
