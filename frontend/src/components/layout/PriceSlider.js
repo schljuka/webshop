@@ -2,7 +2,7 @@ import React from 'react';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
-const PriceSlider = ({ price, setPrice, category, setCategory }) => {
+const PriceSlider = ({ price, setPrice, category, setCategory, rating, setRating }) => {
 
     const categories = [
         'Electronics',
@@ -55,7 +55,37 @@ const PriceSlider = ({ price, setPrice, category, setCategory }) => {
                 </ul>
             </div>
 
-        </div>
+
+
+            <div className='mt-5'>
+                <h4 className='categories'>
+                    Ratings
+                </h4>
+                <ul>
+                    {[5, 4, 3, 2, 1].map(star => (
+                        <li style={{
+                            cursor: 'pointer',
+                            listStyleType: 'none'
+                        }}
+                            key={star}
+                            onClick={() => setRating(star)}>
+                            <div className="rating-outer">
+                                <div className='rating-inner'
+                                    style={{
+                                        width: `${star * 20}%`
+                                    }}>
+                                </div>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
+
+
+
+
+        </div >
 
     );
 };

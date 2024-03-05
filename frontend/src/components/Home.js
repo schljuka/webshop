@@ -16,8 +16,8 @@ import { getProducts } from '../actions/productActions';
 const Home = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [price, setPrice] = useState([1, 1000]);
-
     const [category, setCategory] = useState('');
+    const [rating, setRating] = useState(0);
 
     const alert = useAlert();
     const dispatch = useDispatch();
@@ -29,9 +29,9 @@ const Home = () => {
         if (error) {
             alert.error(error);
         } else {
-            dispatch(getProducts(keyword, currentPage, price, category));
+            dispatch(getProducts(keyword, currentPage, price, category, rating));
         }
-    }, [dispatch, alert, error, keyword, currentPage, price, category]);
+    }, [dispatch, alert, error, keyword, currentPage, price, category, rating]);
 
     function setCurrentPageNo(pageNumber) {
         setCurrentPage(pageNumber);
@@ -52,7 +52,8 @@ const Home = () => {
                                 <Fragment>
 
                                     <PriceSlider price={price} setPrice={setPrice}
-                                        category={category} setCategory={setCategory} />
+                                        category={category} setCategory={setCategory}
+                                        rating={rating} setRating={setRating} />
 
                                     <div className="col-6 col-md-9">
                                         <div className="row">
