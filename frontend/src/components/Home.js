@@ -85,11 +85,16 @@ const Home = () => {
                                 itemClass="page-item"
                                 linkClass="page-link"
                             />
+
+
                         </div>
+
                     )}
                 </Fragment>
             )}
         </Fragment>
+
+
     );
 };
 

@@ -81,10 +81,6 @@ const PriceSlider = ({ price, setPrice, category, setCategory, rating, setRating
                 </ul>
             </div>
 
-
-
-
-
         </div >
 
     );

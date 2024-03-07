@@ -1,9 +1,17 @@
-
 import React from "react";
 import { Link, useNavigate } from 'react-router-dom';
 
+import { useDispatch, useSelector } from 'react-redux'
+import { useAlert } from 'react-alert'
+
+
 const Header = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const alert = useAlert();
+
+    const { user, loading } = useSelector(state => state.auth);
+
 
     const searchHandler = (e) => {
         e.preventDefault();
@@ -25,6 +33,8 @@ const Header = () => {
                 </div>
             </div>
 
+
+
             <div className="col-12 col-md-6 mt-2 mt-md-0">
                 <form onSubmit={searchHandler}>
                     <div className="input-group">
@@ -44,14 +54,82 @@ const Header = () => {
                 </form>
             </div>
 
+            {/* <div className="col-12 col-md-3 mt-4 mt-md-0 text-center">
+                <Link to="/cart" style={{ textDecoration: 'none' }}>
+                    <span id="cart" className="ml-3">Cart</span>
+                    <span id="cart_count">33</span>
+                </Link>
+
+                {user ? (
+
+                    <div className="ml-4 dropdown">
+                        <Link to="#!" className="btn dropdown-toggle text-white"
+                            type="button" id="dropDownMenuButton" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <figure className="avatar avatar-nav">
+                                <img src={user.avatar && user.avatar.url} alt={user && user.name}
+                                    className="rounded-circle"
+                                />
+                            </figure>
+                            <span>{user && user.name}</span>
+                        </Link>
+
+                        <div className="dropdown-menu" aria-labelledby="dropDownMenuButton">
+                            {
+                                user && user.role !== 'admin' ? (
+                                    <Link className="dropdown-item" to="/orders/me">Orders</Link>
+                                ) : (
+                                    <Link className="dropdown-item" to="/dashboard">Dashboard</Link>
+                                )
+                            }
+                            <Link className="dropdown-item" to="/me">Profile</Link>
+                            <Link className="dropdown-item text-danger" to="/">Logout</Link>
+                        </div>
+                    </div>
+                ) : !loading && <Link to="/login" className="btn ml-4" id="login_btn">Login</Link>}
+            </div> */}
+
+
+
             <div className="col-12 col-md-3 mt-4 mt-md-0 text-center">
-                <Link to="/login" className="btn" id="login_btn">Login</Link>
-                <span id="cart" className="ml-3">Cart</span>
-                <span className="ml-1" id="cart_count">33</span>
+                <Link to="/cart" style={{ textDecoration: 'none' }}>
+                    <span id="cart" className="ml-3">Cart</span>
+                    <span id="cart_count">33</span>
+                </Link>
+
+                {user ? (
+
+                    <div className="ml-4 dropdown">
+                        <Link to="#!" className="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <figure className="avatar avatar-nav">
+                                <img src={user.avatar && user.avatar.url} alt={user && user.name}
+                                    className="rounded-circle"
+                                />
+                            </figure>
+                            <span>{user && user.name}</span>
+                        </Link>
+
+                        <div className="dropdown-menu">
+                            {
+                                user && user.role !== 'admin' ? (
+                                    <Link className="dropdown-item" to="/orders/me">Orders</Link>
+                                ) : (
+                                    <Link className="dropdown-item" to="/dashboard">Dashboard</Link>
+                                )
+                            }
+                            <Link className="dropdown-item" to="/me">Profile</Link>
+                            <Link className="dropdown-item text-danger" to="/">Logout</Link>
+                        </div>
+                    </div>
+                ) : !loading && <Link to="/login" className="btn ml-4" id="login_btn">Login</Link>}
             </div>
+
         </nav>
     );
 }
 
 export default Header;
+
+
+
 

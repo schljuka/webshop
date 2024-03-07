@@ -7,12 +7,12 @@ import MetaData from '../layout/MetaData'
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { login, clearErrors } from '../../actions/userActions'
+import { useNavigate } from 'react-router-dom';
 
 
 
 
-
-const Login = ({ history }) => {
+const Login = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -23,9 +23,11 @@ const Login = ({ history }) => {
 
     const { isAuthenticated, error, loading } = useSelector(state => state.auth);
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         if (isAuthenticated) {
-            history.push('/')
+            navigate('/')
         }
 
 
@@ -34,7 +36,7 @@ const Login = ({ history }) => {
             dispatch(clearErrors());
         }
 
-    }, [dispatch, alert, isAuthenticated, error, history])
+    }, [dispatch, alert, isAuthenticated, error, navigate])
 
 
     const submitHandler = (e) => {
