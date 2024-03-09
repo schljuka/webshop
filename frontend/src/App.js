@@ -14,6 +14,8 @@ import Profile from './components/user/Profile';
 
 import { loadUser } from './actions/userActions';
 import Loader from './components/layout/Loader';
+import UpdateProfile from './components/user/UpdateProfile';
+import UpdatedPassword from './components/user/UpdatedPassword';
 
 
 function App() {
@@ -28,7 +30,7 @@ function App() {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
   if (loading) {
-    return <Loader/>;
+    return <Loader />;
   }
   return (
     <Router>
@@ -42,6 +44,9 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/me" element={isAuthenticated ? <Profile /> : <Navigate to="/login" />} />
+            <Route path="/me/update" element={isAuthenticated ? <UpdateProfile /> : <Navigate to="/login" />} />
+            <Route path="/password/update" element={isAuthenticated ? <UpdatedPassword /> : <Navigate to="/login" />} />
+
           </Routes>
           <Footer />
         </div>

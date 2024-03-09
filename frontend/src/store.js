@@ -7,7 +7,7 @@ const reducer = combineReducers({
     products: productsReducer,
     productDetails: productDetailsReducer,
     auth: authReducer,
-    // user: userReducer
+    user: userReducer
 });
 
 let initialState = {};

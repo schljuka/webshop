@@ -9,6 +9,14 @@ import {
     LOAD_USER_REQUEST,
     LOAD_USER_SUCCESS,
     LOAD_USER_FAIL,
+    UPDATE_PROFILE_REQUEST,
+    UPDATE_PROFILE_SUCCESS,
+    UPDATE_PROFILE_FAIL,
+    UPDATE_PROFILE_RESET,
+    UPDATE_PASSWORD_REQUEST,
+    UPDATE_PASSWORD_SUCCESS,
+    UPDATE_PASSWORD_RESET,
+    UPDATE_PASSWORD_FAIL,
     LOGOUT_SUCCESS,
     LOGOUT_FAIL,
     CLEAR_ERRORS
@@ -56,7 +64,7 @@ export const authReducer = (state = { user: {} }, action) => {
         case LOGOUT_FAIL:
             return {
                 ...state,
-                error:action.payload
+                error: action.payload
             }
 
         case LOGIN_FAIL:
@@ -70,6 +78,15 @@ export const authReducer = (state = { user: {} }, action) => {
                 error: action.payload
             }
 
+        // case UPDATE_PROFILE_RESET:
+        //     return {
+        //         ...state,
+        //         user: {
+        //             ...state.user,
+        //             isUpdated: false
+        //         }
+        //     }
+
         case CLEAR_ERRORS:
             return {
                 ...state,
@@ -81,5 +98,56 @@ export const authReducer = (state = { user: {} }, action) => {
 
     }
 
-} 
+}
 
+
+
+export const userReducer = (state = {}, action) => {
+
+    switch (action.type) {
+
+        case UPDATE_PROFILE_REQUEST:
+        case UPDATE_PASSWORD_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+
+        case UPDATE_PROFILE_SUCCESS:
+        case UPDATE_PASSWORD_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                isUpdated: action.payload,
+                isUpdated: true
+            }
+
+        case UPDATE_PROFILE_RESET:
+        case UPDATE_PASSWORD_RESET:
+            return {
+                ...state,
+                isUpdated: false
+            }
+
+        case UPDATE_PROFILE_FAIL:
+        case UPDATE_PASSWORD_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+                error:true
+            }
+
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null
+            }
+
+
+
+        default:
+            return state
+    }
+
+}
