@@ -27,11 +27,11 @@ const UpdatedPassword = () => {
     const { error, isUpdated, loading } = useSelector(state => state.user)
 
     useEffect(() => {
-       
+
         if (error) {
-            alert.error("Wrong old password");
+            alert.error(error);
             dispatch(clearErrors());
-            
+
         }
 
         if (isUpdated) {

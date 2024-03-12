@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 
 import Loader from '../layout/Loader'
 import MetaData from '../layout/MetaData'
@@ -7,7 +7,6 @@ import MetaData from '../layout/MetaData'
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { login, clearErrors } from '../../actions/userActions'
-import { useNavigate } from 'react-router-dom';
 
 
 
@@ -17,26 +16,29 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-
+    const navigate = useNavigate();
+    const location = useLocation();
     const alert = useAlert();
     const dispatch = useDispatch();
 
     const { isAuthenticated, error, loading } = useSelector(state => state.auth);
 
-    const navigate = useNavigate();
+
+    const searchParams = new URLSearchParams(location.search);
+    const redirect = searchParams.has('redirect') ? searchParams.get('redirect') : '/shipping';
 
     useEffect(() => {
         if (isAuthenticated) {
-            navigate('/')
+            const path = redirect.startsWith('/') ? redirect : `/${redirect}`;
+            navigate(path)
         }
-
 
         if (error) {
             alert.error(error);
             dispatch(clearErrors());
         }
 
-    }, [dispatch, alert, isAuthenticated, error, navigate])
+    }, [dispatch, alert, isAuthenticated, error, navigate, redirect])
 
 
     const submitHandler = (e) => {
