@@ -25,6 +25,7 @@ const ListOrders = () => {
             dispatch(clearErrors())
         }
     }, [dispatch, alert, error])
+    
     const setOrders = () => {
         const data = {
             columns: [
@@ -70,7 +71,6 @@ const ListOrders = () => {
                     actions:
                         <Link to={`/order/${order._id}`} className='btn btn-primary'>
                             <i className='fa fa-eye'></i></Link>
-
                 })
             })
         }

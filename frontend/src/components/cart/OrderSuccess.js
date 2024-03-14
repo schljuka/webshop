@@ -4,15 +4,6 @@ import { Link } from 'react-router-dom';
 
 const OrderSuccess = () => {
 
-
-
-
-// todo : order in database
-
-
-
-
-
     return (
         <Fragment>
             <MetaData title={'Order success'} />
@@ -24,7 +15,7 @@ const OrderSuccess = () => {
 
                         <h2>Your Order has been placed successfully.</h2>
 
-                        <Link to="/order">Go to Orders</Link>
+                        <Link to="/orders/me">Go to Orders</Link>
                     </div>
 
                 </div>

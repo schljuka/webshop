@@ -14,7 +14,7 @@ const Cart = () => {
     const { cartItems } = useSelector(state => state.cart)
 
     const navigate = useNavigate();
-  
+
     const increaseQty = (id, quantity, stock) => {
         const newQty = quantity + 1;
 
@@ -34,13 +34,11 @@ const Cart = () => {
     }
 
 
-
-
     const checkoutHandler = () => {
-         navigate('/login?redirect=shipping')
- 
+        navigate('/login?redirect=shipping')
+
     }
- 
+
 
 
     return (

@@ -1,4 +1,7 @@
-import React, { Fragment, useEffect } from 'react'
+
+
+
+import React, { Fragment, useEffect, useState } from 'react'
 import MetaData from '../layout/MetaData'
 import CheckoutSteps from './CheckoutSteps'
 import { useAlert } from 'react-alert'
@@ -7,8 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useStripe, useElements, CardNumberElement, CardExpiryElement, CardCvcElement } from '@stripe/react-stripe-js'
 import axios from 'axios'
-import { Elements } from '@stripe/react-stripe-js'
-import { loadStripe } from '@stripe/stripe-js'
+
 
 const options = {
     style: {
@@ -31,6 +33,14 @@ const Payment = () => {
 
     const { user } = useSelector(state => state.auth);
     const { cartItems, shippingInfo } = useSelector(state => state.cart);
+
+    const itemsPrice = cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0).toFixed(2);
+    const taxRate = 0.17; // Stopa poreza od 17%
+    const subtotal = cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0);
+    const taxPrice = Number((subtotal * taxRate).toFixed(2));
+    const shippingPrice = itemsPrice > 200 ? 0 : 25;
+    const totalPrice = (parseFloat(itemsPrice) + shippingPrice + taxPrice).toFixed(2);
+
 
     useEffect(() => {
 
@@ -81,11 +91,33 @@ const Payment = () => {
             } else {
                 // The payment is processed or not
                 if (result.paymentIntent.status === 'succeeded') {
-                    // tod
-                    navigate('/success')
-                   
+                    const paymentId = result.paymentIntent.id;
+                    const paymentStatus = result.paymentIntent.status;
+
+
+                    // Save order to database
+                    const orderData = {
+                        orderItems: cartItems, // proizvodi u korpi
+                        shippingInfo,
+                        paymentInfo: {
+                            id: paymentId,
+                            status: paymentStatus
+                        },
+                        itemsPrice: itemsPrice,
+                        taxPrice: taxPrice,
+                        shippingPrice: shippingPrice,
+                        totalPrice: totalPrice
+                    }
+
+                    await axios.post('/api/v1/order/new', orderData);
+                    // Redirect to success page
+
+                    sessionStorage.removeItem('orderInfo');
+
+                    navigate('/success');
+
                 } else {
-                    alert.error('These is some issue while payment processing')
+                    alert.error('There is some issue while payment processing')
                 }
             }
 
@@ -93,8 +125,10 @@ const Payment = () => {
             document.querySelector('#pay_btn').disabled = false;
             alert.error(error.response.data.errMessage)
         }
-
     }
+
+
+
 
 
 
@@ -155,3 +189,4 @@ const Payment = () => {
 }
 
 export default Payment;
+

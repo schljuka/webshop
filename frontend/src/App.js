@@ -14,7 +14,9 @@ import Shipping from './components/cart/Shipping';
 import ConfirmOrder from './components/cart/ConfirmOrder';
 import Payment from './components/cart/Payment';
 import OrderSuccess from './components/cart/OrderSuccess';
+
 import ListOrders from './components/order/ListOrders';
+import OrderDetails from './components/order/OrderDetails';
 
 import Login from './components/user/Login';
 import Register from './components/user/Register';
@@ -33,6 +35,7 @@ import Loader from './components/layout/Loader';
 // Payment
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+
 
 
 function App() {
@@ -93,6 +96,7 @@ function App() {
             <Route path="/me/update" element={isAuthenticated ? <UpdateProfile /> : <Navigate to="/login" />} />
             <Route path="/password/update" element={isAuthenticated ? <UpdatedPassword /> : <Navigate to="/login" />} />
             <Route path="/orders/me" element={isAuthenticated ? <ListOrders /> : <Navigate to="/login" />} />
+            <Route path="/order/:id" element={isAuthenticated ? <OrderDetails /> : <Navigate to="/login" />} />
 
 
           </Routes>
