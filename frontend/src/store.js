@@ -44,7 +44,7 @@ import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { productsReducer, productDetailsReducer } from './reducers/productsReducer';
+import { productsReducer, productDetailsReducer, newReviewReducer } from './reducers/productsReducer';
 import { authReducer, userReducer, forgotPasswordReducer } from './reducers/userReducers';
 import { cartReducer } from './reducers/cartReducers';
 import { newOrderReducer, myOrderReducer, orderDetailsReducer } from './reducers/orderReducers';
@@ -63,7 +63,8 @@ const rootReducer = combineReducers({
   cart: cartReducer,
   newOrder: newOrderReducer,
   myOrders: myOrderReducer,
-  orderDetails: orderDetailsReducer
+  orderDetails: orderDetailsReducer,
+  newReview:newReviewReducer
 
 });
 

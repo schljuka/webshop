@@ -30,7 +30,7 @@ const OrderDetails = () => {
 
 
 
-    if (loading) return <Loader />;
+    if (loading || !order) return <Loader />;
 
 
     const shippingDetails = shippingInfo && `${shippingInfo.address}, ${shippingInfo.city},
@@ -66,10 +66,10 @@ const OrderDetails = () => {
                                     <img src={item.image} alt={item.name} height="45" width="65" />
                                 </div>
                                 <div className="col-5 col-lg-5">
-                                    <Link to={`/products/${item.product}`}>{item.name}</Link>
+                                    <Link to={`/product/${item.product}`}>{item.name}</Link>
                                 </div>
                                 <div className="col-4 col-lg-2 mt-4 mt-lg-0">
-                                    <p>{item.price}</p>
+                                    <p>{item.price} €</p>
                                 </div>
                                 <div className="col-4 col-lg-3 mt-4 mt-lg-0">
                                     <p>{item.quantity} Piece(s)</p>
