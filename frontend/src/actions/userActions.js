@@ -150,7 +150,7 @@ export const updatePassword = (passwords) => async (dispatch) => {
         })
 
     } catch (error) {
-        console.log(error);
+      
         dispatch({
             type: UPDATE_PASSWORD_FAIL,
             payload: error.response.data.errMessage
@@ -177,7 +177,7 @@ export const forgotPassword = (email) => async (dispatch) => {
         })
 
     } catch (error) {
-        console.log(error);
+       
         dispatch({
             type: FORGOT_PASSWORD_FAIL,
             payload: error.response.data.errMessage
@@ -202,7 +202,7 @@ export const resetPassword = (token, passwords) => async (dispatch) => {
         })
 
     } catch (error) {
-        console.log(error);
+    
         dispatch({
             type: NEW_PASSWORD_FAIL,
             payload: error.response.data.errMessage

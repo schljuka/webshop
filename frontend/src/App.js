@@ -9,15 +9,18 @@ import Footer from './components/layout/Footer';
 import Home from './components/Home';
 import ProductDetails from './components/product/ProductDetails';
 
+// Cart imports
 import Cart from './components/cart/Cart';
 import Shipping from './components/cart/Shipping';
 import ConfirmOrder from './components/cart/ConfirmOrder';
 import Payment from './components/cart/Payment';
 import OrderSuccess from './components/cart/OrderSuccess';
 
+// Order imports
 import ListOrders from './components/order/ListOrders';
 import OrderDetails from './components/order/OrderDetails';
 
+// Auth or user imports
 import Login from './components/user/Login';
 import Register from './components/user/Register';
 import Profile from './components/user/Profile';
@@ -26,6 +29,10 @@ import UpdatedPassword from './components/user/UpdatedPassword';
 import ForgotPassword from './components/user/ForgotPassword';
 import NewPassword from './components/user/NewPassword';
 
+// Admin imports
+import Dashboard from './components/admin/Dashboard';
+import ProductList from './components/admin/ProductList';
+import NewProduct from './components/admin/NewProduct';
 
 import { loadUser } from './actions/userActions';
 import axios from 'axios';
@@ -50,18 +57,33 @@ function App() {
     dispatch(loadUser()).then(() => setLoading(false));
   }, [dispatch]);
 
+  // useEffect(() => {
+  //   async function getStripeApiKey() {
+  //     const { data } = await axios.get('/api/v1/stripeapi');
+  //     setStripeApiKey(data.stripeApiKey)
+  //   }
+  //   getStripeApiKey();
+  // }, []);
+
   useEffect(() => {
     async function getStripeApiKey() {
-      const { data } = await axios.get('/api/v1/stripeapi');
-      setStripeApiKey(data.stripeApiKey)
+      try {
+        const { data } = await axios.get('/api/v1/stripeapi', {
+        });
+        setStripeApiKey(data.stripeApiKey);
+      } catch (error) {
+        // Handle error
+        console.error('Error with Stripe API key', error);
+      }
     }
     getStripeApiKey();
   }, []);
 
 
-
-
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+
+
+
 
   if (loading) {
     return <Loader />;
@@ -84,10 +106,6 @@ function App() {
               <Payment /></Elements>
             ) : (<Navigate to="/login" />)} />
 
-
-
-
-
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/password/forgot" element={<ForgotPassword />} />
@@ -95,9 +113,13 @@ function App() {
             <Route path="/me" element={isAuthenticated ? <Profile /> : <Navigate to="/login" />} />
             <Route path="/me/update" element={isAuthenticated ? <UpdateProfile /> : <Navigate to="/login" />} />
             <Route path="/password/update" element={isAuthenticated ? <UpdatedPassword /> : <Navigate to="/login" />} />
+
             <Route path="/orders/me" element={isAuthenticated ? <ListOrders /> : <Navigate to="/login" />} />
             <Route path="/order/:id" element={isAuthenticated ? <OrderDetails /> : <Navigate to="/login" />} />
 
+            <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />} />
+            <Route path="/admin/products" element={isAuthenticated ? <ProductList /> : <Navigate to="/login" />} />
+            <Route path="/admin/product" element={isAuthenticated ? <NewProduct /> : <Navigate to="/login" />} />
 
           </Routes>
           <Footer />
