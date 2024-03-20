@@ -76,7 +76,7 @@ const OrdersList = () => {
             ],
             rows: []
         }
-console.log(orders);
+
         if (orders && orders.length > 0) {
             orders.forEach(order => {
                 data.rows.push({

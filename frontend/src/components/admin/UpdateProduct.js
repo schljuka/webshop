@@ -31,6 +31,8 @@ const UpdateProduct = () => {
     const [oldImages, setOldImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
 
+  
+
     const categories = [
         'Electronics',
         'Cameras',
@@ -77,6 +79,8 @@ const UpdateProduct = () => {
 
 
     }, [dispatch, alert, error, isUpdated, navigate, updateError, product, id])
+
+
 
 
 

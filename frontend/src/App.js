@@ -35,6 +35,7 @@ import ProductList from './components/admin/ProductList';
 import NewProduct from './components/admin/NewProduct';
 import UpdateProduct from './components/admin/UpdateProduct';
 import OrdersList from './components/admin/OrdersList';
+import ProcessOrder from './components/admin/ProcessOrder';
 
 import { loadUser } from './actions/userActions';
 import axios from 'axios';
@@ -124,6 +125,7 @@ function App() {
             <Route path="/admin/product" element={isAuthenticated ? <NewProduct /> : <Navigate to="/login" />} />
             <Route path="/admin/product/:id" element={isAuthenticated ? <UpdateProduct /> : <Navigate to="/login" />} />
             <Route path="/admin/orders" element={isAuthenticated ? <OrdersList /> : <Navigate to="/login" />} />
+            <Route path="/admin/order/:id" element={isAuthenticated ? <ProcessOrder /> : <Navigate to="/login" />} />
 
           </Routes>
           <Footer />

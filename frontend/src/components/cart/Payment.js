@@ -35,7 +35,7 @@ const Payment = () => {
     const { cartItems, shippingInfo } = useSelector(state => state.cart);
 
     const itemsPrice = cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0).toFixed(2);
-    const taxRate = 0.17; // Stopa poreza od 17%
+    const taxRate = 0.17;
     const subtotal = cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0);
     const taxPrice = Number((subtotal * taxRate).toFixed(2));
     const shippingPrice = itemsPrice > 200 ? 0 : 25;
