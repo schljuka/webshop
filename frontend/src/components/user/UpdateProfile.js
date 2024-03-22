@@ -42,7 +42,7 @@ const UpdateProfile = () => {
         }
 
         if (isUpdated) {
-            alert.success('user updated successfully')
+            alert.success('User updated successfully')
             dispatch(loadUser());
             navigate("/me");
             dispatch({

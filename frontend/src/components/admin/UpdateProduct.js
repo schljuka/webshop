@@ -31,7 +31,7 @@ const UpdateProduct = () => {
     const [oldImages, setOldImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
 
-  
+
 
     const categories = [
         'Electronics',
@@ -72,9 +72,10 @@ const UpdateProduct = () => {
         }
 
         if (isUpdated) {
-            navigate("/admin/products")
             alert.success('Product updated successfully')
             dispatch({ type: UPDATE_PRODUCT_RESET })
+            dispatch(getProductDetails(id));
+            navigate("/admin/products")
         }
 
 

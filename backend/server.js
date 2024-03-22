@@ -10,7 +10,6 @@ process.on('uncaughtException', err => {
     console.log(`ERROR : ${err.stack}`);
     console.log('Shuttind down server due to uncaught exception');
     process.exit(1);
-
 })
 
 // Setting up config file

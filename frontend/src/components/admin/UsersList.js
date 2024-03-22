@@ -5,17 +5,15 @@ import MetaData from '../layout/MetaData'
 import Loader from '../layout/Loader'
 import Sidebar from './Sidebar'
 import { useDispatch, useSelector } from 'react-redux'
-import { allOrders, clearErrors, deleteOrder } from '../../actions/orderActions';
+import { allUsers, clearErrors } from '../../actions/userActions';
 import { useAlert } from 'react-alert'
-import { DELETE_ORDER_RESET } from '../../constants/orderConstants'
 
 
 
 
+const UsersList = () => {
 
-const OrdersList = () => {
-
-
+   
 
     const navigate = useNavigate();
 
@@ -24,13 +22,13 @@ const OrdersList = () => {
     const alert = useAlert();
     const dispatch = useDispatch();
 
-    const { loading, error, orders } = useSelector(state => state.allOrders)
-    const { isDeleted } = useSelector(state => state.order)
+    const { loading, error, users } = useSelector(state => state.allUsers)
+    // const { isDeleted } = useSelector(state => state.user)
 
 
     useEffect(() => {
 
-        dispatch(allOrders());
+        dispatch(allUsers());
 
         if (error) {
             alert.error(error);
@@ -38,39 +36,40 @@ const OrdersList = () => {
         }
 
 
-        if (isDeleted) {
-            alert.success('Order deleted successfully')
-            navigate("/admin/orders")
-            dispatch({ type: DELETE_ORDER_RESET })
-        }
-    }, [dispatch, alert, error, isDeleted, navigate])
+        // if (isDeleted) {
+        //     alert.success('Order deleted successfully')
+        //     navigate("/admin/orders")
+        //     dispatch({ type: DELETE_ORDER_RESET })
+        // }
 
-    const deleteOrderHandler = (id) => {
-        dispatch(deleteOrder(id));
-    }
+    }, [dispatch, alert, error])
+
+    // const deleteOrderHandler = (id) => {
+    //     dispatch(deleteOrder(id));
+    // }
 
 
-    const setOrders = () => {
+    const setUsers = () => {
         const data = {
             columns: [
                 {
-                    label: 'Order ID',
+                    label: 'User ID',
                     field: 'id',
                     sort: 'asc'
                 },
                 {
-                    label: 'No of Itmes',
-                    field: 'numofItems',
+                    label: 'Name',
+                    field: 'name',
                     sort: 'asc'
                 },
                 {
-                    label: 'Amout',
-                    field: 'amount',
+                    label: 'Email',
+                    field: 'email',
                     sort: 'asc'
                 },
                 {
-                    label: 'Status',
-                    field: 'status',
+                    label: 'Role',
+                    field: 'role',
                     sort: 'asc'
                 },
                 {
@@ -82,20 +81,18 @@ const OrdersList = () => {
             rows: []
         }
 
-        if (orders && orders.length > 0) {
-            orders.forEach(order => {
+        if (users && users.length > 0) {
+            users.forEach(elem => {
                 data.rows.push({
-                    id: order._id,
-                    numofItems: order.orderItems.length,
-                    amount: `${order.totalPrice} €`,
-                    status: order.orderStatus && String(order.orderStatus).includes('Delivered')
-                        ? <p style={{ color: 'green' }}> {order.orderStatus}</p>
-                        : <p style={{ color: 'red' }}> {order.orderStatus}</p>,
+                    id: elem._id,
+                    name: elem.name,
+                    email: elem.email,
+                    role: elem.name,
                     actions:
                         <Fragment>
-                            <Link to={`/admin/order/${order._id}`} className='btn btn-primary py-1 px-1'>
-                                <i className='fa fa-eye'></i></Link>
-                            <button className="btn btn-danger py-1 px-1 ml-2" onClick={() => deleteOrderHandler(order._id)}>
+                            <Link to={`/admin/user/${elem._id}`} className='btn btn-primary py-1 px-1'>
+                                <i className='fa fa-pencil'></i></Link>
+                            <button className="btn btn-danger py-1 px-1 ml-2">
                                 <i className='fa fa-trash'></i>
                             </button>
                         </Fragment>
@@ -108,10 +105,9 @@ const OrdersList = () => {
 
 
 
-
     return (
         <Fragment>
-            <MetaData title={'All Orders'} />
+            <MetaData title={'All Users'} />
 
             {
                 user && user.role === 'admin' ? (
@@ -121,11 +117,11 @@ const OrdersList = () => {
                         </div>
                         <div className="col-12 col-md-10">
                             <Fragment>
-                                <h1 className="my-5">All Orders</h1>
+                                <h1 className="my-5">All Users</h1>
                                 {loading ? <Loader /> : (
 
                                     <MDBDataTable
-                                        data={setOrders()}
+                                        data={setUsers()}
                                         className='px-3'
                                         bordered
                                         striped
@@ -142,4 +138,4 @@ const OrdersList = () => {
     )
 }
 
-export default OrdersList;
+export default UsersList;
