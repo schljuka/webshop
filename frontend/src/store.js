@@ -44,7 +44,10 @@ import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { productsReducer, productDetailsReducer, newReviewReducer, newProductReducer, productReducer } from './reducers/productsReducer';
+import {
+  productsReducer, productDetailsReducer, newReviewReducer,
+  newProductReducer, productReducer, productReviewsReducer, reviewReducer
+} from './reducers/productsReducer';
 import { authReducer, userReducer, forgotPasswordReducer, allUsersReducer, userDetailsReducer } from './reducers/userReducers';
 import { cartReducer } from './reducers/cartReducers';
 import { newOrderReducer, myOrderReducer, orderDetailsReducer, allOrdersReducer, orderReducer } from './reducers/orderReducers';
@@ -59,6 +62,8 @@ const rootReducer = combineReducers({
   productDetails: productDetailsReducer,
   newProduct: newProductReducer,
   product: productReducer,
+  productReviews: productReviewsReducer,
+  review: reviewReducer,
   auth: authReducer,
   user: userReducer,
   allUsers: allUsersReducer,

@@ -19,7 +19,7 @@ const ProcessOrder = () => {
     const alert = useAlert();
     const dispatch = useDispatch();
 
-    const { user: authUser } = useSelector(state => state.auth);
+    const { user: authUser, isAuthenticated } = useSelector(state => state.auth);
     const { loading, order = {} } = useSelector(state => state.orderDetails);
     const { shippingInfo, orderItems, paymentInfo, totalPrice, orderStatus, user: orderUser } = order;
     const { error, isUpdated } = useSelector(state => state.order)
@@ -64,7 +64,7 @@ const ProcessOrder = () => {
             <MetaData title={`Process Orders ' ${order && order._id}`} />
 
             {
-                authUser && authUser.role === 'admin' ? (
+                 authUser && (!isAuthenticated || authUser.role === 'admin') ? (
                     <div className="row">
                         <div className="col-12 col-md-2">
                             <Sidebar />

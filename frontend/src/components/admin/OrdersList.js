@@ -19,7 +19,7 @@ const OrdersList = () => {
 
     const navigate = useNavigate();
 
-    const { user } = useSelector(state => state.auth);
+    const { user, isAuthenticated } = useSelector(state => state.auth);
 
     const alert = useAlert();
     const dispatch = useDispatch();
@@ -114,7 +114,7 @@ const OrdersList = () => {
             <MetaData title={'All Orders'} />
 
             {
-                user && user.role === 'admin' ? (
+                 user && (!isAuthenticated || user.role === 'admin') ? (
                     <div className="row">
                         <div className="col-12 col-md-2">
                             <Sidebar />

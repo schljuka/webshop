@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from 'react-redux'
 const Dashboard = () => {
 
 
-    const { user } = useSelector(state => state.auth);
+    const { user, isAuthenticated } = useSelector(state => state.auth);
 
     const navigate = useNavigate();
 
@@ -44,7 +44,7 @@ const Dashboard = () => {
 
             <div>
                 {
-                    user && user.role === 'admin' ? (
+                    user && (!isAuthenticated || user.role === 'admin') ? (
                         <div className="row">
                             <div className="col-12 col-md-2">
                                 <Sidebar />

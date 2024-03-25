@@ -25,7 +25,7 @@ const UpdateUser = () => {
     const alert = useAlert();
     const dispatch = useDispatch();
 
-    const { user: authUser, loading } = useSelector(state => state.auth);
+    const { user: authUser, loading, isAuthenticated } = useSelector(state => state.auth);
     const { error, isUpdated } = useSelector(state => state.user);
     const { user } = useSelector(state => state.userDetails);
 
@@ -63,7 +63,8 @@ const UpdateUser = () => {
         formData.set('name', name);
         formData.set('email', email);
         formData.set('role', role);
-        dispatch(updateUser(formData))
+        dispatch(updateUser(user._id, formData))
+        dispatch(getUserDetails(id))
     }
 
 
@@ -72,7 +73,7 @@ const UpdateUser = () => {
             <MetaData title={'Update user'} />
 
             {
-                authUser && authUser.role === 'admin' ? (
+                  authUser && (!isAuthenticated || authUser.role === 'admin') ? (
                     <div className="row">
                         <div className="col-12 col-md-2">
                             <Sidebar />

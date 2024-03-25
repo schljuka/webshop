@@ -1,29 +1,31 @@
 import React, { Fragment, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { MDBDataTable } from 'mdbreact'
 import MetaData from '../layout/MetaData'
 import Loader from '../layout/Loader'
 import Sidebar from './Sidebar'
 import { useDispatch, useSelector } from 'react-redux'
-import { allUsers, clearErrors } from '../../actions/userActions';
+import { allUsers, clearErrors, deleteUser } from '../../actions/userActions';
 import { useAlert } from 'react-alert'
+import { DELETE_USER_RESET } from '../../constants/userConstants'
+
 
 
 
 
 const UsersList = () => {
 
-   
 
+   
     const navigate = useNavigate();
 
-    const { user } = useSelector(state => state.auth);
+    const { user, isAuthenticated } = useSelector(state => state.auth);
 
     const alert = useAlert();
     const dispatch = useDispatch();
 
     const { loading, error, users } = useSelector(state => state.allUsers)
-    // const { isDeleted } = useSelector(state => state.user)
+    const { isDeleted } = useSelector(state => state.user)
 
 
     useEffect(() => {
@@ -34,19 +36,17 @@ const UsersList = () => {
             alert.error(error);
             dispatch(clearErrors())
         }
+        if (isDeleted) {
+            alert.success('User deleted successfully')
+            navigate("/admin/users")
+            dispatch({ type: DELETE_USER_RESET })
+        }
 
+    }, [dispatch, alert, error, navigate, isDeleted])
 
-        // if (isDeleted) {
-        //     alert.success('Order deleted successfully')
-        //     navigate("/admin/orders")
-        //     dispatch({ type: DELETE_ORDER_RESET })
-        // }
-
-    }, [dispatch, alert, error])
-
-    // const deleteOrderHandler = (id) => {
-    //     dispatch(deleteOrder(id));
-    // }
+    const deleteUserHandler = (id) => {
+        dispatch(deleteUser(id));
+    }
 
 
     const setUsers = () => {
@@ -93,7 +93,7 @@ const UsersList = () => {
                             <Link to={`/admin/user/${elem._id}`} className='btn btn-primary py-1 px-1'>
                                 <i className='fa fa-pencil'></i></Link>
                             <button className="btn btn-danger py-1 px-1 ml-2">
-                                <i className='fa fa-trash'></i>
+                                <i className='fa fa-trash' onClick={() => deleteUserHandler(elem._id)}></i>
                             </button>
                         </Fragment>
                 })
@@ -110,7 +110,7 @@ const UsersList = () => {
             <MetaData title={'All Users'} />
 
             {
-                user && user.role === 'admin' ? (
+                   user && (!isAuthenticated || user.role === 'admin') ? (
                     <div className="row">
                         <div className="col-12 col-md-2">
                             <Sidebar />

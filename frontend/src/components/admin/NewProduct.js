@@ -23,7 +23,7 @@ const NewProduct = () => {
 
     const navigate = useNavigate();
 
-    const { user } = useSelector(state => state.auth);
+    const { user, isAuthenticated } = useSelector(state => state.auth);
 
     const categories = [
         'Electronics',
@@ -110,7 +110,7 @@ const NewProduct = () => {
             <MetaData title={'New Product'} />
 
             {
-                user && user.role === 'admin' ? (
+                user && (!isAuthenticated || user.role === 'admin') ? (
                     <div className="row">
                         <div className="col-12 col-md-2">
                             <Sidebar />

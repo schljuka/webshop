@@ -17,7 +17,7 @@ const UpdateProduct = () => {
     const alert = useAlert();
     const dispatch = useDispatch();
 
-    const { user } = useSelector(state => state.auth);
+    const { user, isAuthenticated } = useSelector(state => state.auth);
     const { error, product } = useSelector(state => state.productDetails);
     const { loading, error: updateError, isUpdated } = useSelector(state => state.product)
 
@@ -140,7 +140,7 @@ const UpdateProduct = () => {
             <MetaData title={'Update Product'} />
 
             {
-                user && user.role === 'admin' ? (
+               user && (!isAuthenticated || user.role === 'admin') ? (
                     <div className="row">
                         <div className="col-12 col-md-2">
                             <Sidebar />
