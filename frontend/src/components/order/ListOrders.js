@@ -25,7 +25,7 @@ const ListOrders = () => {
             dispatch(clearErrors())
         }
     }, [dispatch, alert, error])
-    
+
     const setOrders = () => {
         const data = {
             columns: [
@@ -83,21 +83,21 @@ const ListOrders = () => {
     return (
         <Fragment>
             <MetaData title={'My Orders'} />
+            <div className="container container-fluid">
+                <h1 className='my-5'>My Orders</h1>
 
-            <h1 className='my-5'>My Orders</h1>
+                {loading ? <Loader /> : (
+                    <MDBDataTable 
+                        data={setOrders()}
+                        className='px-3 mdbtable'
+                        bordered
+                        striped
+                        hover
+                    />
+                )
 
-            {loading ? <Loader /> : (
-                <MDBDataTable
-                    data={setOrders()}
-                    className='px-3'
-                    bordered
-                    striped
-                    hover
-                />
-            )
-
-            }
-
+                }
+            </div>
         </Fragment>
     )
 }

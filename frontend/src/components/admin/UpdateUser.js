@@ -73,13 +73,14 @@ const UpdateUser = () => {
             <MetaData title={'Update user'} />
 
             {
-                  authUser && (!isAuthenticated || authUser.role === 'admin') ? (
+                authUser && (!isAuthenticated || authUser.role === 'admin') ? (
                     <div className="row">
                         <div className="col-12 col-md-2">
                             <Sidebar />
                         </div>
                         <div className="col-12 col-md-10">
                             <Fragment>
+
                                 <div className="row wrapper">
                                     <div className="col-10 col-lg-5">
                                         <form className="shadow-lg" onSubmit={submitHandler}>

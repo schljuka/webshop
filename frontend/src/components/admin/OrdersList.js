@@ -9,35 +9,20 @@ import { allOrders, clearErrors, deleteOrder } from '../../actions/orderActions'
 import { useAlert } from 'react-alert'
 import { DELETE_ORDER_RESET } from '../../constants/orderConstants'
 
-
-
-
-
 const OrdersList = () => {
-
-
-
     const navigate = useNavigate();
-
     const { user, isAuthenticated } = useSelector(state => state.auth);
-
     const alert = useAlert();
     const dispatch = useDispatch();
-
     const { loading, error, orders } = useSelector(state => state.allOrders)
     const { isDeleted } = useSelector(state => state.order)
 
-
     useEffect(() => {
-
         dispatch(allOrders());
-
         if (error) {
             alert.error(error);
             dispatch(clearErrors())
         }
-
-
         if (isDeleted) {
             alert.success('Order deleted successfully')
             navigate("/admin/orders")
@@ -49,7 +34,6 @@ const OrdersList = () => {
         dispatch(deleteOrder(id));
     }
 
-
     const setOrders = () => {
         const data = {
             columns: [
@@ -59,12 +43,12 @@ const OrdersList = () => {
                     sort: 'asc'
                 },
                 {
-                    label: 'No of Itmes',
+                    label: 'No of Items',
                     field: 'numofItems',
                     sort: 'asc'
                 },
                 {
-                    label: 'Amout',
+                    label: 'Amount',
                     field: 'amount',
                     sort: 'asc'
                 },
@@ -93,9 +77,10 @@ const OrdersList = () => {
                         : <p style={{ color: 'red' }}> {order.orderStatus}</p>,
                     actions:
                         <Fragment>
-                            <Link to={`/admin/order/${order._id}`} className='btn btn-primary py-1 px-1'>
-                                <i className='fa fa-eye'></i></Link>
-                            <button className="btn btn-danger py-1 px-1 ml-2" onClick={() => deleteOrderHandler(order._id)}>
+                            <Link to={`/admin/order/${order._id}`} className='btn btn-primary py-1 px-2'>
+                                <i className='fa fa-eye'></i>
+                            </Link>
+                            <button className="btn btn-danger py-1 px-2 ml-2" onClick={() => deleteOrderHandler(order._id)}>
                                 <i className='fa fa-trash'></i>
                             </button>
                         </Fragment>
@@ -106,38 +91,32 @@ const OrdersList = () => {
         return data;
     }
 
-
-
-
     return (
         <Fragment>
             <MetaData title={'All Orders'} />
-
-            {
-                 user && (!isAuthenticated || user.role === 'admin') ? (
-                    <div className="row">
-                        <div className="col-12 col-md-2">
-                            <Sidebar />
-                        </div>
-                        <div className="col-12 col-md-10">
-                            <Fragment>
+            {user && (!isAuthenticated || user.role === 'admin') ? (
+                <div className="row">
+                    <div className="col-12 col-md-2">
+                        <Sidebar />
+                    </div>
+                    <div className="col-12 col-md-10">
+                        <Fragment>
+                            <div className="container container-fluid tablemdb-w">
                                 <h1 className="my-5">All Orders</h1>
                                 {loading ? <Loader /> : (
-
                                     <MDBDataTable
                                         data={setOrders()}
-                                        className='px-3'
+                                        className='px-3 mdbtable'
                                         bordered
                                         striped
                                         hover
                                     />
                                 )}
-                            </Fragment>
-                        </div>
+                            </div>
+                        </Fragment>
                     </div>
-                ) : !loading && (navigate("/"))
-            }
-
+                </div>
+            ) : !loading && (navigate("/"))}
         </Fragment>
     )
 }

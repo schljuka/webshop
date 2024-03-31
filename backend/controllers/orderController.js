@@ -32,6 +32,11 @@ exports.newOrder = catchAsyncErrors(async (req, res, next) => {
         user: req.user._id
     })
 
+
+    for (const item of orderItems) {
+        await updateStock(item.product, item.quantity);
+    }
+
     res.status(200).json({
         succes: true,
         order
@@ -91,28 +96,57 @@ exports.allOrders = catchAsyncErrors(async (req, res, next) => {
 
 
 // Update / Process order     /api/v1/admin/order/_id
+// exports.updateOrder = catchAsyncErrors(async (req, res, next) => {
+
+//     const order = await Order.findById(req.params.id);
+
+//     if (order.orderStatus === 'Delivered') {
+//         return next(new ErrorHandler('You have already delivered this order', 400))
+//     }
+
+//     order.orderItems.forEach(async item => {
+//         await updateStock(item.product, item.quantity)
+//     })
+
+//     order.orderStatus = req.body.status;
+//     order.deliveredAt = Date.now();
+
+//     await order.save()
+
+//     res.status(200).json({
+//         success: true
+//     })
+
+// })
+
 exports.updateOrder = catchAsyncErrors(async (req, res, next) => {
+    const { status } = req.body;
 
     const order = await Order.findById(req.params.id);
 
-    if (order.orderStatus === 'Delivered') {
+    if (!order) {
+        return next(new ErrorHandler('Order not found', 404));
+    }
+
+    if (order.orderStatus === status) {
+        return next(new ErrorHandler('Order status remains unchanged', 400));
+    }
+
+     if (order.orderStatus === 'Delivered') {
         return next(new ErrorHandler('You have already delivered this order', 400))
     }
 
-    order.orderItems.forEach(async item => {
-        await updateStock(item.product, item.quantity)
-    })
+    order.orderStatus = status;
+    order.deliveredAt = status === 'Delivered' ? Date.now() : null;
 
-    order.orderStatus = req.body.status;
-    order.deliveredAt = Date.now();
-
-    await order.save()
+    await order.save();
 
     res.status(200).json({
         success: true
-    })
+    });
+});
 
-})
+
 
 async function updateStock(id, quantity) {
     const product = await Product.findById(id);

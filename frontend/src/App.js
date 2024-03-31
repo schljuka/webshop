@@ -63,32 +63,21 @@ function App() {
     dispatch(loadUser()).then(() => setLoading(false));
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   async function getStripeApiKey() {
-  //     const { data } = await axios.get('/api/v1/stripeapi');
-  //     setStripeApiKey(data.stripeApiKey)
-  //   }
-  //   getStripeApiKey();
-  // }, []);
-
-  useEffect(() => {
-    async function getStripeApiKey() {
-      try {
-        const { data } = await axios.get('/api/v1/stripeapi', {
-        });
-        setStripeApiKey(data.stripeApiKey);
-      } catch (error) {
-        // Handle error
-        console.error('Error with Stripe API key', error);
-      }
-    }
-    getStripeApiKey();
-  }, []);
-
-
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
-
+  useEffect(() => {
+    if (isAuthenticated) {
+      async function getStripeApiKey() {
+        try {
+          const { data } = await axios.get('/api/v1/stripeapi');
+          setStripeApiKey(data.stripeApiKey);
+        } catch (error) {
+          console.error('Error with Stripe API key', error);
+        }
+      }
+      getStripeApiKey();
+    }
+  }, [isAuthenticated]);
 
 
   if (loading) {
@@ -98,44 +87,42 @@ function App() {
     <Router>
       <div className="App">
         <Header />
-        <div className="container container-fluid">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/search/:keyword" element={<Home />} />
-            <Route path="/product/:id" element={<ProductDetails />} />
+        {/* <div className="container container-fluid"> */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/search/:keyword" element={<Home />} />
+          <Route path="/product/:id" element={<ProductDetails />} />
 
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/shipping" element={isAuthenticated ? <Shipping /> : <Navigate to="/login" />} />
-            <Route path="/order/confirm" element={isAuthenticated ? <ConfirmOrder /> : <Navigate to="/login" />} />
-            <Route path="/success" element={isAuthenticated ? <OrderSuccess /> : <Navigate to="/login" />} />
-            <Route path="/payment" element={isAuthenticated ? (<Elements stripe={loadStripe(stripeApiKey)}>
-              <Payment /></Elements>
-            ) : (<Navigate to="/login" />)} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/shipping" element={isAuthenticated ? <Shipping /> : <Navigate to="/login" />} />
+          <Route path="/order/confirm" element={isAuthenticated ? <ConfirmOrder /> : <Navigate to="/login" />} />
+          <Route path="/success" element={isAuthenticated ? <OrderSuccess /> : <Navigate to="/login" />} />
+          <Route path="/payment" element={isAuthenticated ? (<Elements stripe={loadStripe(stripeApiKey)}>
+            <Payment /></Elements>) : (<Navigate to="/login" />)} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/password/forgot" element={<ForgotPassword />} />
+          <Route path="/password/reset/:token" element={<NewPassword />} />
+          <Route path="/me" element={isAuthenticated ? <Profile /> : <Navigate to="/login" />} />
+          <Route path="/me/update" element={isAuthenticated ? <UpdateProfile /> : <Navigate to="/login" />} />
+          <Route path="/password/update" element={isAuthenticated ? <UpdatedPassword /> : <Navigate to="/login" />} />
 
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/password/forgot" element={<ForgotPassword />} />
-            <Route path="/password/reset/:token" element={<NewPassword />} />
-            <Route path="/me" element={isAuthenticated ? <Profile /> : <Navigate to="/login" />} />
-            <Route path="/me/update" element={isAuthenticated ? <UpdateProfile /> : <Navigate to="/login" />} />
-            <Route path="/password/update" element={isAuthenticated ? <UpdatedPassword /> : <Navigate to="/login" />} />
+          <Route path="/orders/me" element={isAuthenticated ? <ListOrders /> : <Navigate to="/login" />} />
+          <Route path="/order/:id" element={isAuthenticated ? <OrderDetails /> : <Navigate to="/login" />} />
 
-            <Route path="/orders/me" element={isAuthenticated ? <ListOrders /> : <Navigate to="/login" />} />
-            <Route path="/order/:id" element={isAuthenticated ? <OrderDetails /> : <Navigate to="/login" />} />
+          <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />} />
+          <Route path="/admin/products" element={isAuthenticated ? <ProductList /> : <Navigate to="/login" />} />
+          <Route path="/admin/product" element={isAuthenticated ? <NewProduct /> : <Navigate to="/login" />} />
+          <Route path="/admin/product/:id" element={isAuthenticated ? <UpdateProduct /> : <Navigate to="/login" />} />
+          <Route path="/admin/orders" element={isAuthenticated ? <OrdersList /> : <Navigate to="/login" />} />
+          <Route path="/admin/order/:id" element={isAuthenticated ? <ProcessOrder /> : <Navigate to="/login" />} />
+          <Route path="/admin/users" element={isAuthenticated ? <UsersList /> : <Navigate to="/login" />} />
+          <Route path="/admin/user/:id" element={isAuthenticated ? <UpdateUser /> : <Navigate to="/login" />} />
+          <Route path="/admin/reviews" element={isAuthenticated ? <ProductReviews /> : <Navigate to="/login" />} />
 
-            <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />} />
-            <Route path="/admin/products" element={isAuthenticated ? <ProductList /> : <Navigate to="/login" />} />
-            <Route path="/admin/product" element={isAuthenticated ? <NewProduct /> : <Navigate to="/login" />} />
-            <Route path="/admin/product/:id" element={isAuthenticated ? <UpdateProduct /> : <Navigate to="/login" />} />
-            <Route path="/admin/orders" element={isAuthenticated ? <OrdersList /> : <Navigate to="/login" />} />
-            <Route path="/admin/order/:id" element={isAuthenticated ? <ProcessOrder /> : <Navigate to="/login" />} />
-            <Route path="/admin/users" element={isAuthenticated ? <UsersList /> : <Navigate to="/login" />} />
-            <Route path="/admin/user/:id" element={isAuthenticated ? <UpdateUser /> : <Navigate to="/login" />} />
-            <Route path="/admin/reviews" element={isAuthenticated ? <ProductReviews /> : <Navigate to="/login" />} />
-
-          </Routes>
-          <Footer />
-        </div>
+        </Routes>
+        <Footer />
+        {/* </div> */}
       </div>
     </Router>
   );

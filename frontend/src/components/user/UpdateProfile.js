@@ -81,74 +81,73 @@ const UpdateProfile = () => {
     return (
         <Fragment>
             <MetaData title={'Update Profile'} />
-            <div className="row wrapper">
-                <div className="col-10 col-lg-5">
-                    <form className="shadow-lg" onSubmit={submitHandler} encType='multipart/form-data'>
-                        <h1 className="mt-2 mb-5">Update Profile</h1>
+            <div className="container container-fluid">
+                <div className="row wrapper">
+                    <div className="col-10 col-lg-5">
+                        <form className="shadow-lg" onSubmit={submitHandler} encType='multipart/form-data'>
+                            <h1 className="mt-2 mb-5">Update Profile</h1>
 
-                        <div className="form-group">
-                            <label htmlFor="email_field">Name</label>
-                            <input
-                                type="name"
-                                id="name_field"
-                                className="form-control"
-                                name='name'
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                            />
-                        </div>
+                            <div className="form-group">
+                                <label htmlFor="email_field">Name</label>
+                                <input
+                                    type="name"
+                                    id="name_field"
+                                    className="form-control"
+                                    name='name'
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                />
+                            </div>
 
-                        <div className="form-group">
-                            <label htmlFor="email_field">Email</label>
-                            <input
-                                type="email"
-                                id="email_field"
-                                className="form-control"
-                                name='email'
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                            <div className="form-group">
+                                <label htmlFor="email_field">Email</label>
+                                <input
+                                    type="email"
+                                    id="email_field"
+                                    className="form-control"
+                                    name='email'
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
 
-                            />
-                        </div>
+                                />
+                            </div>
 
-                        <div className='form-group'>
-                            <label htmlFor='avatar_upload'>Avatar</label>
-                            <div className='d-flex align-items-center'>
-                                <div>
-                                    <figure className='avatar mr-3 item-rtl'>
-                                        <img
-                                            src={avatarPreview}
-                                            className='rounded-circle'
-                                            alt='Avatar Preview'
+                            <div className='form-group'>
+                                <label htmlFor='avatar_upload'>Avatar</label>
+                                <div className='d-flex align-items-center'>
+                                    <div>
+                                        <figure className='avatar mr-3 item-rtl'>
+                                            <img
+                                                src={avatarPreview}
+                                                className='rounded-circle'
+                                                alt='Avatar Preview'
+                                            />
+                                        </figure>
+                                    </div>
+                                    <div className='custom-file px-5'>
+                                        <input
+                                            type='file'
+                                            name='avatar'
+                                            className='custom-file-input'
+                                            id='customFile'
+                                            accept="image/*"
+                                            onChange={onChange}
                                         />
-                                    </figure>
-                                </div>
-                                <div className='custom-file'>
-                                    <input
-                                        type='file'
-                                        name='avatar'
-                                        className='custom-file-input'
-                                        id='customFile'
-                                        accept="image/*"
-                                        onChange={onChange}
-                                    />
-                                    <label className='custom-file-label' htmlFor='customFile'>
-                                        Choose Avatar
-                                    </label>
+
+                                        <label className='custom-file-label' htmlFor='customFile'>
+                                            Choose Avatar
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <button type="submit" className="btn update-btn btn-block mt-4 mb-3"
-                            disabled={loading ? true : false}>Update</button>
-                    </form>
+                            <button type="submit" className="btn update-btn btn-block mt-4 mb-3 w-100"
+                                disabled={loading ? true : false}>Update
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
-
-
-
-
-
         </Fragment >
     )
 }

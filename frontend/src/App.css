@@ -35,18 +35,25 @@ nav {
     padding: 1rem 1rem;
 }
 
+.navbar {
+    padding-left: 3rem;
+    width: 100%;
+}
+
 #search_btn {
     background-color: #febd69;
 }
 
 .input-group {
-    width: 90%;
-    margin-right: 35%;
+    width: 100%;
+    /* margin-right: 45%; */
 }
 
 #search_field {
     height: 2.4rem;
+    width: 80%;
     padding: 1rem;
+    margin-left: 3rem;
 }
 
 #login_btn,
@@ -54,13 +61,17 @@ nav {
     background-color: #febd69;
     padding: 0.4rem 1.8rem;
     font-family: calibri;
+
 }
+
+
 
 #cart {
     font-size: 1rem;
     color: white;
     padding: 0.3rem;
 }
+
 
 #cart_count {
     background-color: #febd69;
@@ -104,8 +115,8 @@ nav {
 }
 
 .card-img-top {
-    width: 200px;
-    height: 150px;
+    width: 180px;
+    height: 130px;
 }
 
 .ratings {
@@ -194,7 +205,8 @@ footer {
 
 #product_image {
     margin-top: 3rem;
-    width: 20%;
+    width: 50%;
+    height: 50%;
 }
 
 /* Loader */
@@ -288,6 +300,10 @@ footer {
 .plus,
 .minus {
     padding: 0.1rem 0.5rem;
+}
+
+.addToCart {
+    margin-left: 2rem;
 }
 
 .stockCounter input::-webkit-outer-spin-button,
@@ -498,20 +514,25 @@ footer {
     align-items: stretch;
     min-height: 100vh;
     font-weight: normal;
-
     margin-top: 0;
     height: 100%;
     left: 0;
     top: 0;
     z-index: 10;
+
+}
+
+.dashboard {
+    width: 70%;
 }
 
 #sidebar {
-    min-width: 100%;
-    max-width: 100%;
+    min-width: 250px;
+    max-width: 300px;
     background: #232f3e;
     color: #fff;
     transition: all 0.3s;
+    padding-left: 2rem;
 }
 
 #sidebar.active {
@@ -537,7 +558,7 @@ footer {
 }
 
 #sidebar ul li a:hover {
-    color: #232f3e;
+    color: #0b2748;
     background: #fff;
 }
 
@@ -577,7 +598,7 @@ a[data-toggle='collapse'] {
     font-size: 1.1rem;
 }
 
-/* .dropdown-menu {
+.dropdown-menu {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
@@ -585,7 +606,7 @@ a[data-toggle='collapse'] {
     min-width: 50%;
     box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
-} */
+}
 
 /* .dropdown:hover .dropdown-menu {
     display: block;
@@ -662,13 +683,111 @@ ul.CTAs a {
     color: grey;
 }
 
-
-.categories {
-    margin-left: 2rem;
-}
-
 #lgn_btn {
     width: 100%;
     margin-top: 1rem;
     margin-bottom: 1rem;
+}
+
+
+
+
+@media (max-width: 1480px) {
+    .tablemdb-w {
+        width: 70%;
+    }
+
+}
+
+@media (max-width: 1280px) {
+    .tablemdb {
+        width: 70%;
+    }
+
+}
+
+
+@media (max-width: 1024px) {
+    nav {
+        padding: 0.5rem 1rem;
+    }
+
+    .navbar {
+        padding-left: 0.5rem;
+    }
+
+    #search_field {
+        width: 50%;
+        margin-left: 1rem;
+    }
+
+    #cart_count {
+        margin-right: 0.2rem;
+    }
+
+    .dropdown-menu {
+        min-width: 100%;
+    }
+
+    .input-group {
+        width: 90%;
+        padding-left: 4rem;
+    }
+}
+
+
+@media (max-width: 880px) {
+    .navbar .cart {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .mdbtable {
+        font-size: 10px;
+    }
+
+}
+
+
+@media (max-width: 640px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    #products .row {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .card-img-top {
+        width: 120px;
+        height: 80px;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .mdbtable {
+        font-size: 8px;
+    }
+}
+
+@media (max-width: 380) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 8px;
+    }
 }

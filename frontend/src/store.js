@@ -1,18 +1,36 @@
 // import { combineReducers } from 'redux';
 // import { configureStore } from '@reduxjs/toolkit';
-// import { productsReducer, productDetailsReducer } from './reducers/productsReducer';
-// import { authReducer, userReducer, forgotPasswordReducer } from './reducers/userReducers'
+// // import { persistReducer, persistStore } from 'redux-persist';
+// // import storage from 'redux-persist/lib/storage';
+// import {
+//   productsReducer, productDetailsReducer, newReviewReducer,
+//   newProductReducer, productReducer, productReviewsReducer, reviewReducer
+// } from './reducers/productsReducer';
+// import { authReducer, userReducer, forgotPasswordReducer, allUsersReducer, userDetailsReducer } from './reducers/userReducers';
 // import { cartReducer } from './reducers/cartReducers';
+// import { newOrderReducer, myOrderReducer, orderDetailsReducer, allOrdersReducer, orderReducer } from './reducers/orderReducers';
 
 
 
 // const reducer = combineReducers({
-//     products: productsReducer,
-//     productDetails: productDetailsReducer,
-//     auth: authReducer,
-//     user: userReducer,
-//     forgotPassword: forgotPasswordReducer,
-//     cart: cartReducer
+//    products: productsReducer,
+// productDetails: productDetailsReducer,
+// newProduct: newProductReducer,
+// product: productReducer,
+// productReviews: productReviewsReducer,
+// review: reviewReducer,
+// auth: authReducer,
+// user: userReducer,
+// allUsers: allUsersReducer,
+// userDetails: userDetailsReducer,
+// forgotPassword: forgotPasswordReducer,
+// cart: cartReducer,
+// newOrder: newOrderReducer,
+// myOrders: myOrderReducer,
+// allOrders: allOrdersReducer,
+// orderDetails: orderDetailsReducer,
+// order: orderReducer,
+// newReview: newReviewReducer,
 // });
 
 
@@ -28,9 +46,6 @@
 // };
 
 
-
-
-
 // const store = configureStore({
 //     reducer,
 //     initialState,
@@ -40,10 +55,69 @@
 // export default store;
 
 
+
+
+
+
+// import { combineReducers } from 'redux';
+// import { configureStore } from '@reduxjs/toolkit';
+// import { persistReducer, persistStore } from 'redux-persist';
+// import storage from 'redux-persist/lib/storage';
+// import {
+//   productsReducer, productDetailsReducer, newReviewReducer,
+//   newProductReducer, productReducer, productReviewsReducer, reviewReducer
+// } from './reducers/productsReducer';
+// import { authReducer, userReducer, forgotPasswordReducer, allUsersReducer, userDetailsReducer } from './reducers/userReducers';
+// import { cartReducer } from './reducers/cartReducers';
+// import { newOrderReducer, myOrderReducer, orderDetailsReducer, allOrdersReducer, orderReducer } from './reducers/orderReducers';
+
+// const persistConfig = {
+//   key: 'root',
+//   storage,
+// };
+
+// const rootReducer = combineReducers({
+//   products: productsReducer,
+//   productDetails: productDetailsReducer,
+//   newProduct: newProductReducer,
+//   product: productReducer,
+//   productReviews: productReviewsReducer,
+//   review: reviewReducer,
+//   auth: authReducer,
+//   user: userReducer,
+//   allUsers: allUsersReducer,
+//   userDetails: userDetailsReducer,
+//   forgotPassword: forgotPasswordReducer,
+//   cart: cartReducer,
+//   newOrder: newOrderReducer,
+//   myOrders: myOrderReducer,
+//   allOrders: allOrdersReducer,
+//   orderDetails: orderDetailsReducer,
+//   order: orderReducer,
+//   newReview: newReviewReducer,
+
+// });
+
+// const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+// const store = configureStore({
+//   reducer: persistedReducer,
+//   devTools: true,
+// });
+
+// export const persistor = persistStore(store);
+
+// export default store;
+
+
+
+
+
+
+
+
 import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
-import { persistReducer, persistStore } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
 import {
   productsReducer, productDetailsReducer, newReviewReducer,
   newProductReducer, productReducer, productReviewsReducer, reviewReducer
@@ -52,12 +126,7 @@ import { authReducer, userReducer, forgotPasswordReducer, allUsersReducer, userD
 import { cartReducer } from './reducers/cartReducers';
 import { newOrderReducer, myOrderReducer, orderDetailsReducer, allOrdersReducer, orderReducer } from './reducers/orderReducers';
 
-const persistConfig = {
-  key: 'root',
-  storage,
-};
-
-const rootReducer = combineReducers({
+const reducer = combineReducers({
   products: productsReducer,
   productDetails: productDetailsReducer,
   newProduct: newProductReducer,
@@ -76,16 +145,18 @@ const rootReducer = combineReducers({
   orderDetails: orderDetailsReducer,
   order: orderReducer,
   newReview: newReviewReducer,
-
 });
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const preloadedState = {
+  cart: {
+    cartItems: JSON.parse(localStorage.getItem('cartItems')) || [],
+    shippingInfo: JSON.parse(localStorage.getItem('shippingInfo')) || {},
+  },
+};
 
 const store = configureStore({
-  reducer: persistedReducer,
-  devTools: true,
+  reducer,
+  preloadedState,
 });
-
-export const persistor = persistStore(store);
 
 export default store;

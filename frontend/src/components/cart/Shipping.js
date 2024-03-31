@@ -27,7 +27,6 @@ const Shipping = () => {
 
     const submitHandler = (e) => {
         e.preventDefault();
-
         dispatch(saveShippingInfo({ address, city, phoneNo, postalCode, country }));
         navigate('/order/confirm')
     }
@@ -37,86 +36,86 @@ const Shipping = () => {
     return (
         <Fragment>
             <MetaData title={'Shiping Info'} />
+            <div className="container container-fluid">
+                <CheckoutSteps shipping />
+                <div className="row wrapper">
+                    <div className="col-10 col-lg-5">
+                        <form className="shadow-lg" onSubmit={submitHandler}>
+                            <h1 className="mb-4">Shipping Info</h1>
+                            <div className="form-group">
+                                <label htmlFor="address_field">Address</label>
+                                <input
+                                    type="text"
+                                    id="address_field"
+                                    className="form-control"
+                                    value={address}
+                                    onChange={(e) => setAddress(e.target.value)}
+                                    required
+                                />
+                            </div>
 
-            <CheckoutSteps shipping/>
+                            <div className="form-group">
+                                <label htmlFor="city_field">City</label>
+                                <input
+                                    type="text"
+                                    id="city_field"
+                                    className="form-control"
+                                    value={city}
+                                    onChange={(e) => setCity(e.target.value)}
+                                    required
+                                />
+                            </div>
 
-            <div className="row wrapper">
-                <div className="col-10 col-lg-5">
-                    <form className="shadow-lg" onSubmit={submitHandler}>
-                        <h1 className="mb-4">Shipping Info</h1>
-                        <div className="form-group">
-                            <label htmlFor="address_field">Address</label>
-                            <input
-                                type="text"
-                                id="address_field"
-                                className="form-control"
-                                value={address}
-                                onChange={(e) => setAddress(e.target.value)}
-                                required
-                            />
-                        </div>
+                            <div className="form-group">
+                                <label htmlFor="phone_field">Phone No</label>
+                                <input
+                                    type="phone"
+                                    id="phone_field"
+                                    className="form-control"
+                                    value={phoneNo}
+                                    onChange={(e) => setPhoneNo(e.target.value)}
+                                    required
+                                />
+                            </div>
 
-                        <div className="form-group">
-                            <label htmlFor="city_field">City</label>
-                            <input
-                                type="text"
-                                id="city_field"
-                                className="form-control"
-                                value={city}
-                                onChange={(e) => setCity(e.target.value)}
-                                required
-                            />
-                        </div>
+                            <div className="form-group">
+                                <label htmlFor="postal_code_field">Postal Code</label>
+                                <input
+                                    type="number"
+                                    id="postal_code_field"
+                                    className="form-control"
+                                    value={postalCode}
+                                    onChange={(e) => setPostalCode(e.target.value)}
+                                    required
+                                />
+                            </div>
 
-                        <div className="form-group">
-                            <label htmlFor="phone_field">Phone No</label>
-                            <input
-                                type="phone"
-                                id="phone_field"
-                                className="form-control"
-                                value={phoneNo}
-                                onChange={(e) => setPhoneNo(e.target.value)}
-                                required
-                            />
-                        </div>
+                            <div className="form-group">
+                                <label htmlFor="country_field">Country</label>
+                                <select
+                                    id="country_field"
+                                    className="form-control"
+                                    value={country}
+                                    onChange={(e) => setCountry(e.target.value)}
+                                    required
+                                >
+                                    {countriesList.map(elem => (
+                                        <option key={elem.name} value={elem.name}>
+                                            {elem.name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
 
-                        <div className="form-group">
-                            <label htmlFor="postal_code_field">Postal Code</label>
-                            <input
-                                type="number"
-                                id="postal_code_field"
-                                className="form-control"
-                                value={postalCode}
-                                onChange={(e) => setPostalCode(e.target.value)}
-                                required
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="country_field">Country</label>
-                            <select
-                                id="country_field"
-                                className="form-control"
-                                value={country}
-                                onChange={(e) => setCountry(e.target.value)}
-                                required
+                            <button
+                                id="shipping_btn"
+                                type="submit"
+                                className="btn btn-block py-3"
                             >
-                                {countriesList.map(elem => (
-                                    <option key={elem.name} value={elem.name}>
-                                        {elem.name}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-
-                        <button
-                            id="shipping_btn"
-                            type="submit"
-                            className="btn btn-block py-3"
-                        >
-                            CONTINUE
-                        </button>
-                    </form>
+                                CONTINUE
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
 

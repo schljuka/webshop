@@ -113,26 +113,30 @@ const ProductList = () => {
 
             {
                 user && (!isAuthenticated || user.role === 'admin') ? (
+
                     <div className="row">
                         <div className="col-12 col-md-2">
                             <Sidebar />
                         </div>
                         <div className="col-12 col-md-10">
                             <Fragment>
-                                <h1 className="my-5">All Products</h1>
-                                {loading ? <Loader /> : (
+                            <div className="container container-fluid tablemdb-w">
+                                    <h1 className="my-5">All Products</h1>
+                                    {loading ? <Loader /> : (
 
-                                    <MDBDataTable
-                                        data={setProducts()}
-                                        className='px-3'
-                                        bordered
-                                        striped
-                                        hover
-                                    />
-                                )}
+                                        <MDBDataTable
+                                            data={setProducts()}
+                                            className='px-3 mdbtable'
+                                            bordered
+                                            striped
+                                            hover
+                                        />
+                                    )}
+                                </div>
                             </Fragment>
                         </div>
                     </div>
+
                 ) : !loading && (navigate("/"))
             }
 

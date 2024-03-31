@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
     return (
-        
         <div className="sidebar-wrapper">
             <nav id="sidebar">
                 <ul className="list-unstyled components">
@@ -19,31 +18,41 @@ const Sidebar = () => {
                                 <i className="fa fa-product-hunt"></i>Products
                             </Link>
                             <div className="dropdown-menu bg-secondary">
-                                <li>
-                                    <Link to="/admin/products">
-                                        <i className="fa fa-clipboard"></i>
-                                        All
-                                    </Link>
+                                <ul className="list-unstyled background-white">
+                                    <li>
+                                        <Link to="/admin/products">
+                                            <i className="fa fa-clipboard"></i>
+                                            All
+                                        </Link>
+                                    </li>
                                     <li>
                                         <Link to="/admin/product">
                                             <i className="fa fa-plus"></i>
                                             Create
                                         </Link>
                                     </li>
-                                </li>
+                                </ul>
                             </div>
                         </div>
                     </li>
 
                     <li>
-                        <Link to="/admin/orders"><i
-                            className="fa fa-shopping-basket"></i>Orders</Link>
+                        <Link to="/admin/orders">
+                            <i className="fa fa-shopping-basket"></i>
+                            Orders
+                        </Link>
                     </li>
                     <li>
-                        <Link to="/admin/users"><i className="fa fa-users"></i>Users</Link>
+                        <Link to="/admin/users">
+                            <i className="fa fa-users"></i>
+                            Users
+                        </Link>
                     </li>
                     <li>
-                        <Link to="/admin/reviews"><i className="fa fa-star"></i>Reviews</Link>
+                        <Link to="/admin/reviews">
+                            <i className="fa fa-star"></i>
+                            Reviews
+                        </Link>
                     </li>
                 </ul>
             </nav>
@@ -52,12 +61,3 @@ const Sidebar = () => {
 }
 
 export default Sidebar;
-
-
-
-
-
-
-
-
-

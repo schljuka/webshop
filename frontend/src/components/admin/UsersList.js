@@ -16,7 +16,7 @@ import { DELETE_USER_RESET } from '../../constants/userConstants'
 const UsersList = () => {
 
 
-   
+
     const navigate = useNavigate();
 
     const { user, isAuthenticated } = useSelector(state => state.auth);
@@ -110,24 +110,26 @@ const UsersList = () => {
             <MetaData title={'All Users'} />
 
             {
-                   user && (!isAuthenticated || user.role === 'admin') ? (
+                user && (!isAuthenticated || user.role === 'admin') ? (
                     <div className="row">
                         <div className="col-12 col-md-2">
                             <Sidebar />
                         </div>
                         <div className="col-12 col-md-10">
                             <Fragment>
-                                <h1 className="my-5">All Users</h1>
-                                {loading ? <Loader /> : (
+                            <div className="container container-fluid tablemdb-w">
+                                    <h1 className="my-5">All Users</h1>
+                                    {loading ? <Loader /> : (
 
-                                    <MDBDataTable
-                                        data={setUsers()}
-                                        className='px-3'
-                                        bordered
-                                        striped
-                                        hover
-                                    />
-                                )}
+                                        <MDBDataTable
+                                            data={setUsers()}
+                                            className='px-3 mdbtable'
+                                            bordered
+                                            striped
+                                            hover
+                                        />
+                                    )}
+                                </div>
                             </Fragment>
                         </div>
                     </div>

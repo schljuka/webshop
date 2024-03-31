@@ -64,7 +64,7 @@ const Header = () => {
             </div>
 
 
-            <div className="col-12 col-md-3 mt-4 mt-md-0 text-center">
+            <div className="col-12 col-md-3 mt-4 mt-md-2 text-center cart">
                 <Link to="/cart" style={{ textDecoration: 'none' }}>
                     <span id="cart" className="ml-3">Cart</span>
                     <span id="cart_count">{cartItems.length}</span>

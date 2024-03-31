@@ -1,6 +1,3 @@
-
-
-
 import React, { Fragment, useEffect, useState } from 'react'
 import MetaData from '../layout/MetaData'
 import CheckoutSteps from './CheckoutSteps'
@@ -42,9 +39,7 @@ const Payment = () => {
     const totalPrice = (parseFloat(itemsPrice) + shippingPrice + taxPrice).toFixed(2);
 
 
-    useEffect(() => {
 
-    }, [])
 
     const orderInfo = JSON.parse(sessionStorage.getItem('orderInfo'));
 
@@ -113,8 +108,10 @@ const Payment = () => {
                     // Redirect to success page
 
                     sessionStorage.removeItem('orderInfo');
-
+                    localStorage.removeItem('cartItems');
                     navigate('/success');
+
+
 
                 } else {
                     alert.error('There is some issue while payment processing')
@@ -129,61 +126,58 @@ const Payment = () => {
 
 
 
-
-
-
     return (
         <Fragment>
             <MetaData title={'Payment'} />
 
             <CheckoutSteps shipping confirmOrder payment />
+            <div className="container container-fluid">
+                <div className="row wrapper">
+                    <div className="col-10 col-lg-5">
+                        <form className="shadow-lg" onSubmit={submitHanlder}>
+                            <h1 className="mb-4">Card Info</h1>
+                            <div className="form-group">
+                                <label htmlFor="card_num_field">Card Number</label>
+                                <CardNumberElement
+                                    type="text"
+                                    id="card_num_field"
+                                    className="form-control"
+                                    options={options}
+                                />
+                            </div>
 
-            <div className="row wrapper">
-                <div className="col-10 col-lg-5">
-                    <form className="shadow-lg" onSubmit={submitHanlder}>
-                        <h1 className="mb-4">Card Info</h1>
-                        <div className="form-group">
-                            <label htmlFor="card_num_field">Card Number</label>
-                            <CardNumberElement
-                                type="text"
-                                id="card_num_field"
-                                className="form-control"
-                                options={options}
-                            />
-                        </div>
+                            <div className="form-group">
+                                <label htmlFor="card_exp_field">Card Expiry</label>
+                                <CardExpiryElement
+                                    type="text"
+                                    id="card_exp_field"
+                                    className="form-control"
+                                    options={options}
 
-                        <div className="form-group">
-                            <label htmlFor="card_exp_field">Card Expiry</label>
-                            <CardExpiryElement
-                                type="text"
-                                id="card_exp_field"
-                                className="form-control"
-                                options={options}
+                                />
+                            </div>
 
-                            />
-                        </div>
+                            <div className="form-group">
+                                <label htmlFor="card_cvc_field">Card CVC</label>
+                                <CardCvcElement
+                                    type="text"
+                                    id="card_cvc_field"
+                                    className="form-control"
+                                    options={options}
+                                />
+                            </div>
 
-                        <div className="form-group">
-                            <label htmlFor="card_cvc_field">Card CVC</label>
-                            <CardCvcElement
-                                type="text"
-                                id="card_cvc_field"
-                                className="form-control"
-                                options={options}
-                            />
-                        </div>
+                            <button
+                                id="pay_btn"
+                                type="submit"
+                                className="btn btn-block py-3">
+                                Pay{` - ${orderInfo && orderInfo.totalPrice} €`}
+                            </button>
 
-                        <button
-                            id="pay_btn"
-                            type="submit"
-                            className="btn btn-block py-3">
-                            Pay{` - ${orderInfo && orderInfo.totalPrice} €`}
-                        </button>
-
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
-
         </Fragment>
     )
 }

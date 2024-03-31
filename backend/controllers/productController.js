@@ -46,11 +46,42 @@ exports.newProduct = catchAsyncErrors(async (req, res, next) => {
 
 
 // Get all products    /api/v1/products?keyword=apple
+// exports.getProducts = catchAsyncErrors(async (req, res, next) => {
+
+
+//     const resPerPage = 6;
+
+//     const productsCount = await Product.countDocuments();
+
+//     const apiFeatures = new APIFeatures(Product.find(), req.query)
+//         .search()
+//         .filter()
+//         .pagination(resPerPage)
+
+//     const products = await apiFeatures.query;
+
+
+//     res.status(200).json({
+//         success: true,
+//         productsCount,
+//         resPerPage,
+//         products
+//     })
+
+
+
+// })
+
 exports.getProducts = catchAsyncErrors(async (req, res, next) => {
+    const resPerPage = 6;
+    let productsCount;
 
 
-    const resPerPage = 12;
-    const productsCount = await Product.countDocuments();
+    if (req.query.category) {
+        productsCount = await Product.countDocuments({ category: req.query.category });
+    } else {
+        productsCount = await Product.countDocuments();
+    }
 
     const apiFeatures = new APIFeatures(Product.find(), req.query)
         .search()
@@ -59,17 +90,14 @@ exports.getProducts = catchAsyncErrors(async (req, res, next) => {
 
     const products = await apiFeatures.query;
 
-
     res.status(200).json({
         success: true,
         productsCount,
         resPerPage,
         products
-    })
+    });
+});
 
-
-
-})
 
 
 
