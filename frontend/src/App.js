@@ -53,7 +53,7 @@ import { loadStripe } from '@stripe/stripe-js';
 
 function App() {
 
-  const [stripeApiKey, setStripeApiKey] = useState('');
+  const [stripeApiKey, setStripeApiKey] = useState('4567876545323566ygfcvbhuhgvhg');
 
   const [loading, setLoading] = useState(true);
 

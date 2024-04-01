@@ -139,6 +139,10 @@ const Home = () => {
         setCurrentPage(pageNumber);
     }
 
+    useEffect(()=>{
+        setCurrentPage(currentPage);
+    }, [productsCount])
+
     return (
         <Fragment>
             {loading ? (
@@ -182,9 +186,9 @@ const Home = () => {
                                 )}
                             </div>
                         </section>
-                        {resPerPage <= productsCount && (
+                        {resPerPage <= products?.length && (
                             <div className='d-flex justify-content-center mt-5'>
-                                <Pagination
+                                 <Pagination
                                     activePage={currentPage}
                                     itemsCountPerPage={resPerPage}
                                     totalItemsCount={productsCount}
